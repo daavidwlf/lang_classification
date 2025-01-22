@@ -13,19 +13,7 @@ import os
 from transformers import EarlyStoppingCallback
 
 
-def train_and_save(
-    X_train, y_train,
-    X_val, y_val,
-    model_name="prajjwal1/bert-tiny",
-    num_labels=3,
-    max_length=64,            
-    num_epochs=4
-):
-
-    early_stopping = EarlyStoppingCallback(
-        early_stopping_patience=2,
-        early_stopping_threshold=0.0
-    )
+def train_and_save( X_train, y_train, X_val, y_val, model_name, num_labels, max_length, num_epochs):
 
     class TextDataset(Dataset):
         def __init__(self, texts, labels, tokenizer, max_length):
@@ -90,7 +78,7 @@ def train_and_save(
         fp16=fp16_flag,
         load_best_model_at_end=True,
         metric_for_best_model="accuracy",
-        warmup_ratio=0.1
+        warmup_ratio=0.1,
     )
 
     trainer = Trainer(
@@ -100,14 +88,11 @@ def train_and_save(
         eval_dataset=val_dataset,
         data_collator=data_collator,
         compute_metrics=compute_metrics,
-        callbacks=[early_stopping]
     )
 
-    # Train
     print("Training...")
     trainer.train()
 
-    # Evaluate
     print("Evaluating...")
     results = trainer.evaluate()
     print("Validation Results:", results)

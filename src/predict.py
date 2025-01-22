@@ -40,7 +40,7 @@ def predict(X_test):
     device = choose_device(model)
     
     predictions = []
-    for text in X_test["text"]:  # iterate over each row's text
+    for text in X_test["text"]:
         pred = predict_text(text, tokenizer, model, device)
         predictions.append(pred)
     
@@ -53,5 +53,5 @@ X_test = processing.process_data(data_test)
 y_test = predict(X_test)
 
 df = pd.DataFrame({"id": X_test["id"], "text": X_test["text"], "label": y_test})
-df.to_csv("../results/predicted_data.csv", index=False)
-print("Prediction complete. Results saved to predicted_data.csv")
+df.to_csv("../results/test_with_label.csv", index=False)
+print("Prediction complete. Results saved to ../results/test_with_label.csv")

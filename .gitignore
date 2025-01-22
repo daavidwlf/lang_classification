@@ -3,3 +3,4 @@ venv
 __pycache__
 model_cache
 saved_model
+*.docx
