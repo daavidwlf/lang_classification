@@ -6,6 +6,7 @@ ML approach to classify tweets into "hate speach", "offensive language", and "ne
 
 - use python 3.12 or older
 - create a venv
+- activate the virtual environment
 - install dependencies based on requirements.txt
 
 # Usage
